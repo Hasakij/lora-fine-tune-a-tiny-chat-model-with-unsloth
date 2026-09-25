@@ -147,7 +147,9 @@ def build_training_arguments(output_dir='./sft_out', max_steps=5, learning_rate=
         bf16=use_bf16,
         fp16=not use_bf16,
         logging_steps=1,
-        optim='adamw_8bit'
+        optim='adamw_8bit',
+        save_strategy='no',
+        report_to='none'
     )
 
 # Step 16 - build_sft_trainer
@@ -166,8 +168,12 @@ def build_sft_trainer(model, tokenizer, dataset, training_args, max_seq_length=2
         packing=False,
     )
 
-# Step 17 - run_sft_training (not yet solved)
-# TODO: implement
+# Step 17 - run_sft_training
+def run_sft_training(trainer):
+    """Run a few SFT steps and return the final training loss as a float."""
+    # TODO: drive the trainer through its short optimization run and return the final loss
+    train_output = trainer.train()
+    return float(train_output.training_loss)
 
 # Step 18 - switch_to_inference_mode (not yet solved)
 # TODO: implement
